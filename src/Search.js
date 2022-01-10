@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {API_KEY, API_URL} from "./API/constants";
+import {API_KEY} from "./API/constants"
 import Gallery from "./Gallery";
 import {Button, Form, Container, Row, Col} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Search = () => {
     // function to convert new Date to input format
@@ -21,27 +21,11 @@ const Search = () => {
         return `${year}-${month}-${day}`
     }
 
-    const getImages = (successCallback) => {
-        fetch(API_URL, {
-            method: "GET",
-            headers: {
-                "Authorization": API_KEY
-            }
-        })
-            .then(r => r.json())
-            .then(data => {
-                if (data.error === false && typeof successCallback === "function") {
-                    successCallback(data.data);
-                }
-            })
-            .catch(err => console.log(err));
-    }
-
-    const [numberOfImages, setNumberOfImages] = useState();
+    const [numberOfImages, setNumberOfImages] = useState(1);
     const [date, setDate] = useState(dateSyntax());
     const [errorNumber, setErrorNumber] = useState("");
     const [errorDate, setErrorDate] = useState("");
-    const [images, setImages] = useState([]);
+    const [card, setCard] = useState([]);
 
     //function to check if the number of images is between 1 and 50; if not function shows error on the site
     const handleNumberOfImages = (e) => {
@@ -54,7 +38,8 @@ const Search = () => {
     }
 
     const handleDate = (e) => {
-        if(e.target.value > date) {
+        //to check if chosen date is in the future
+        if(new Date(e.target.value) > new Date()) {
             setErrorDate("No photos found for this date");
         } else {
             setDate(e.target.value);
@@ -64,12 +49,15 @@ const Search = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        getImages(setImages);
+        async function sendApiRequest(){
+            let response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&start_date=${date}`);
+            console.log(response);
+            let data = await response.json();
+            console.log(data);
+            setCard(data.splice(0, numberOfImages));
+        }
+        sendApiRequest();
     }
-
-    console.log(date);
-    console.log(numberOfImages);
-    console.log(images);
 
     return (
         <>
@@ -92,8 +80,7 @@ const Search = () => {
                     </Row>
                 </Container>
             </Form>
-            <Gallery getImages={getImages}/>
-            <div>{images}</div>
+            <Gallery data={card}/>
         </>
     );
 };
