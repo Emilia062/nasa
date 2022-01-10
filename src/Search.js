@@ -64,18 +64,18 @@ const Search = () => {
             <Form>
                 <Container>
                     <Row>
-                        <Col style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                        <Col style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", fontFamily:"'Merriweather', serif"}}>
                             <Form.Label id="images" style={{marginBottom: "20px", marginTop:"20px"}}>Number of images:</Form.Label>
                             <Form.Control type="number" value={numberOfImages} id="images" onChange={handleNumberOfImages} style={{marginBottom: "20px"}}/>
                             <span style={{marginBottom: "20px"}}>{errorNumber}</span>
                         </Col>
-                        <Col style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                        <Col style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", fontFamily:"'Merriweather', serif"}}>
                             <Form.Label style={{marginBottom: "20px", marginTop:"20px"}}>Select the date:</Form.Label>
                             <Form.Control type="date" value={date} id="date" onChange={handleDate} style={{marginBottom: "20px"}}/>
                             <span style={{marginBottom: "20px"}}>{errorDate}</span>
                         </Col>
                         <Col style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                            <Button className="btn btn-info" onClick={handleSubmit} style={{marginBottom: "20px", marginTop:"20px"}}>Submit</Button>
+                            <Button className="btn btn-info" onClick={handleSubmit} style={{marginBottom: "20px", marginTop:"20px", fontFamily:"'Merriweather', serif"}}>Submit</Button>
                         </Col>
                     </Row>
                 </Container>

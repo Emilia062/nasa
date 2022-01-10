@@ -17,9 +17,9 @@ const Gallery = ({data}) => {
                                     <a data-lg-size="1406-1390" className="gallery-item" data-src={e.url} data-sub-html="<h4>e.title</h4> <p>e.date</p>">
                                         <Card.Img src={e.url} alt={e.title}/>
                                     </a>
-                                    <Card.Body>
-                                        <Card.Title>{e.title}</Card.Title>
-                                        <Card.Text>{e.date}</Card.Text>
+                                    <Card.Body style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
+                                        <Card.Title style={{fontFamily: "'Open Sans', sans-serif"}}>{e.title} </Card.Title>
+                                        <Card.Text style={{fontFamily: "'Open Sans', sans-serif"}}>{e.date}</Card.Text>
                                     </Card.Body>
                                 </Card>
                             </Col>
